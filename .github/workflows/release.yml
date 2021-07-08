@@ -31,13 +31,20 @@ jobs:
           uses: actions/download-artifact@v1
           with:
             name: apk
+        - name: Create Release
+            id: create_release
+            uses: actions/create-release@v1
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            with:
+              release_name: Release 0.1
         - name: Upload Release APK
           id: upload_release_asset
           uses: actions/upload-release-asset@v1.0.1
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           with:
-            upload_url: app/build/outputs/apk/release
+            upload_url: ${{ steps.create_release.outputs.upload_url }}
             asset_path: apk/app-debug.apk
             asset_name: MyAndroidSDKApp.apk
             asset_content_type: application/zip
