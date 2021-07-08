@@ -2,8 +2,7 @@ name: Create release of the app
 
 on:
   push:
-    branches:
-      - master
+    branches: [ main ]
 
 
 jobs:
